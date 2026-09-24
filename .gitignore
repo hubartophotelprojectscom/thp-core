@@ -1,0 +1,4 @@
+# Real secrets live only on the server (see config/thp-core-secrets.sample.php)
+config/thp-core-secrets.php
+.env
+*.log

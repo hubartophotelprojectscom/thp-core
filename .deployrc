@@ -1,0 +1,5 @@
+DEPLOY_HOST="thp-staging"
+DEPLOY_PATH="www/wp-content/mu-plugins"
+DEPLOY_HOST_PROD="thp-prod"
+DEPLOY_PATH_PROD="www/wp-content/mu-plugins"
+DEPLOY_EXCLUDE=".git,.github,.gitignore,.deployrc,node_modules,*.log,.env,thp-core-secrets.php,thp-core-secrets.sample.php,README.md,CHANGELOG.md"
