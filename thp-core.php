@@ -14,7 +14,25 @@ defined('ABSPATH') || exit;
 
 define('THP_CORE_VERSION', '0.1.0');
 define('THP_CORE_DIR', __DIR__ . '/thp-core');
+
+/*
+ * Two config locations, deliberately distinct.
+ *
+ * Deployment rsyncs the repo root INTO wp-content/mu-plugins/, so this file
+ * lands at mu-plugins/thp-core.php and __DIR__ is mu-plugins/ itself.
+ *
+ * THP_CORE_CONFIG_DIR  -> mu-plugins/config/
+ *     Hand-placed, git-ignored, deploy-excluded secrets
+ *     (thp-core-secrets.php). Outside the package on purpose: a deploy must
+ *     never be able to overwrite or remove it.
+ *
+ * THP_CORE_PACKAGE_CONFIG_DIR -> mu-plugins/thp-core/config/
+ *     Committed, versioned, non-secret config that ships with a release
+ *     (thp-core-domain-lists.php). Inside the package, so it is replaced on
+ *     every deploy along with the code that reads it.
+ */
 define('THP_CORE_CONFIG_DIR', __DIR__ . '/config');
+define('THP_CORE_PACKAGE_CONFIG_DIR', THP_CORE_DIR . '/config');
 
 spl_autoload_register(static function (string $class): void {
     $prefix = 'THP\\Core\\';
