@@ -49,6 +49,31 @@ spl_autoload_register(static function (string $class): void {
 });
 
 /*
+ * Bundled shared library: CMB2 (v2.13.2), the admin metabox / options-page
+ * framework THP plugins build their settings screens with. It lives here, once,
+ * so there is a single copy to upgrade and security-patch rather than one per
+ * consuming plugin — the same "shared engine in Core, plugin-specific usage in
+ * the consumer" split as the Validation classes above. Only the LIBRARY lives
+ * here; each plugin registers its own option pages (on cmb2_admin_init).
+ *
+ * Loaded through CMB2's own official entry point — we require its init.php and
+ * do not hand-roll a loader. CMB2 is explicitly built to be bundled by several
+ * plugins/themes at once without a redeclare fatal: init.php wraps everything in
+ * `if ( ! class_exists( 'CMB2_Bootstrap_2132', false ) )` (the bootstrap class
+ * name carries the version, so copies never collide), each copy hooks its loader
+ * on `init` at a PRIORITY that decrements every release (newest version =
+ * earliest priority), and that loader bails early on `class_exists( 'CMB2' )`.
+ * The newest bundled copy therefore wins and older copies stand down. Requiring
+ * it from this mu-plugin (which loads before `init`) makes CMB2 available to
+ * every consuming plugin. Centralising here is best practice given that safety
+ * net, not a hard requirement — but it keeps us to one copy.
+ */
+$thpCoreCmb2Init = THP_CORE_DIR . '/lib/CMB2/init.php';
+if (is_readable($thpCoreCmb2Init)) {
+    require_once $thpCoreCmb2Init;
+}
+
+/*
  * The autoloader above is registered immediately, so THP\Core classes are
  * usable by any code that runs after this file, including other mu-plugins.
  *

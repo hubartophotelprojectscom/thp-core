@@ -1,0 +1,13 @@
+# Vendored third-party libraries.
+#
+# CMB2 is an unmodified upstream copy bundled under thp-core/lib/CMB2/ (see
+# thp-core/lib/CMB2/VENDORED.md). Mark it so GitHub Linguist excludes it from
+# language stats and collapses it in diffs / PR reviews.
+#
+# NOTE ON THE PATH: this repo nests the plugin package one level down, so the
+# committed path is thp-core/lib/CMB2/ (verify with `git ls-files thp-core/lib/CMB2/`).
+# These patterns contain a slash and are therefore anchored to this file's
+# location (the repo root), so they must carry the thp-core/ prefix -- a bare
+# `lib/CMB2/**` would match nothing. Do not "simplify" it.
+thp-core/lib/CMB2/** linguist-vendored
+thp-core/lib/CMB2/** linguist-generated

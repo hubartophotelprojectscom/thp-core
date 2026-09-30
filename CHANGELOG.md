@@ -6,6 +6,7 @@
 - `THP\Core\Validation\EmailVerification`: real implementation of the address checks. `has_mail_exchanger()` resolves MX with an A-record fallback (RFC 5321 §5.1) and returns three states — `true`, `false`, or `null` when the lookup could not be trusted, confirmed against a control domain so a broken resolver is never mistaken for a real negative. Results cached per domain for 24h under `thp_core_mx_*`; the undetermined case is deliberately not cached. `validate()` collects every failure reason as `EmailValidationResult::REASON_*` codes
 - `THP_CORE_PACKAGE_CONFIG_DIR`, for committed non-secret config that ships inside the package
 - 13 free-mail domains merged in from thp-register's list: yahoo.co.in, yahoo.co.uk, hotmail.de, hotmail.co.uk, outlook.de, msn.com, proton.me, protonmail.com, mail.ru, yandex.ru, qq.com, 163.com, 126.com (26 entries total)
+- Bundled CMB2 v2.13.2 (unmodified upstream copy) at `thp-core/lib/CMB2/`, loaded once via its official `init.php` from `thp-core.php` so every consuming plugin shares a single copy. Marked vendored/generated for Linguist in `.gitattributes`; update procedure and the version-coexistence mechanism documented in `thp-core/lib/CMB2/VENDORED.md`
 
 ### Fixed
 - The committed domain list was unreachable. `THP_CORE_CONFIG_DIR` resolves to `mu-plugins/config/` (the hand-placed secrets directory), but the list ships inside the package at `mu-plugins/thp-core/config/`. `EmailDomainList` now reads `THP_CORE_PACKAGE_CONFIG_DIR`; the two paths are kept distinct so a deploy can never overwrite the secrets file
