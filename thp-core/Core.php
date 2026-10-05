@@ -26,9 +26,8 @@ class Core
     /**
      * Bootstrap thp-core: initialise modules that need hooks, in a fixed order. Idempotent.
      *
-     * Runs on plugins_loaded (priority 0). No module needs hooks yet, so this
-     * only marks thp-core as initialised. It must never throw, because it runs
-     * on every request.
+     * Runs on plugins_loaded (priority 0). Wires the shared "THP Settings"
+     * admin menu. It must never throw, because it runs on every request.
      *
      * @return void
      */
@@ -39,6 +38,8 @@ class Core
         }
 
         self::$initialized = true;
+
+        Admin\SettingsMenu::init();
     }
 
     /**

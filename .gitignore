@@ -2,3 +2,5 @@
 config/thp-core-secrets.php
 .env
 *.log
+.thp-deployed-sha.*
+*.txt

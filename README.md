@@ -16,3 +16,11 @@ Copy `config/thp-core-secrets.sample.php` to `config/thp-core-secrets.php` on th
 | `THP_CORE_LOG_PEPPER` | Random secret (≥ 32 bytes) used as the HMAC pepper when hashing IPs for logs and rate-limit keys. |
 
 All of them are optional at load time. `Thp_Credentials::get('HUBSPOT_TOKEN')` returns `null` when a constant is missing, and the calling code has to handle that case.
+
+## Language helper
+
+`THP\Core\I18n\Lang` is a static WPML helper (`enabled()`, `default_code()`, `list()`, `is_default()`, `active()`). Without WPML `active()` returns `''` and no WPML filter is called.
+
+## Shared admin menu
+
+`THP\Core\Admin\SettingsMenu` registers the top-level "THP Settings" menu (slug `thp-settings`, capability `edit_pages`, `admin_menu` priority 9) once, so THP plugins can nest their settings pages under it.
